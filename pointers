@@ -1,0 +1,17 @@
+#include <stdio.h>
+
+int main()
+{
+    int a = 20, b = 10;
+    int *p, *q;
+    int sub;
+
+    p = &a;
+    q = &b;
+
+    sub = *p - *q;
+
+    printf("Subtraction = %d", sub);
+
+    return 0;
+}
