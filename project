@@ -1,0 +1,108 @@
+
+#include <stdio.h>
+
+struct Student {
+    int roll;
+    char name[50];
+    int marks[5];
+    int total;
+    float average;
+    char grade;
+    char result[10];
+};
+
+int main() {
+    struct Student s;
+    int choice, entered = 0, calculated = 0;
+
+    do {
+        printf("\nSTUDENT MARKS MANAGEMENT SYSTEM");
+        printf("\n--------------------------------");
+        printf("\n1. Enter Student Details");
+        printf("\n2. Calculate Result");
+        printf("\n3. Display Result");
+        printf("\n4. Exit");
+
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+
+            case 1:
+                printf("Enter Roll Number: ");
+                scanf("%d", &s.roll);
+
+                printf("Enter Student Name: ");
+                scanf(" %49[^\n]", s.name);
+
+                for (int i = 0; i < 5; i++) {
+                    printf("Enter Subject %d Mark: ", i + 1);
+                    scanf("%d", &s.marks[i]);
+                }
+
+                entered = 1;
+                calculated = 0;
+                break;
+
+            case 2:
+                if (!entered) {
+                    printf("\nPlease enter student details first!\n");
+                    break;
+                }
+
+                s.total = 0;
+
+                for (int i = 0; i < 5; i++) {
+                    s.total += s.marks[i];
+                }
+
+                s.average = s.total / 5.0;
+
+                if (s.average >= 90)
+                    s.grade = 'A';
+                else if (s.average >= 80)
+                    s.grade = 'B';
+                else if (s.average >= 70)
+                    s.grade = 'C';
+                else if (s.average >= 60)
+                    s.grade = 'D';
+                else
+                    s.grade = 'F';
+
+                if (s.average >= 40)
+                    sprintf(s.result, "PASS");
+                else
+                    sprintf(s.result, "FAIL");
+
+                calculated = 1;
+                printf("\nResult Calculated Successfully!\n");
+                break;
+
+            case 3:
+                if (!entered || !calculated) {
+                    printf("\nPlease enter details and calculate result first!\n");
+                    break;
+                }
+
+                printf("\nSTUDENT RESULT");
+                printf("\n-------------------------");
+                printf("\nRoll Number : %d", s.roll);
+                printf("\nName        : %s", s.name);
+                printf("\nTotal       : %d", s.total);
+                printf("\nAverage     : %.2f", s.average);
+                printf("\nGrade       : %c", s.grade);
+                printf("\nResult      : %s\n", s.result);
+                break;
+
+            case 4:
+                printf("\nThank You!\n");
+                break;
+
+            default:
+                printf("\nInvalid Choice! Try Again.\n");
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
